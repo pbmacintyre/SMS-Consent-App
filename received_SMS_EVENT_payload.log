@@ -1,0 +1,8 @@
+{"uuid":"7754810157227725318","event":"/restapi/v1.0/account/541645017/extension/62199486016/message-store/instant?type=SMS",
+"timestamp":"2025-07-11T12:09:09.260Z","subscriptionId":"a27d8b8b-ea68-4b96-a088-eb7a74a9a578","ownerId":"62199486016",
+"body":{"id":"3039142774016","to":[{"phoneNumber":"+18084652470","name":"Peter MacIntyre","location":"Honolulu, HI","target":true}],
+"from":{"phoneNumber":"+19029405827","phoneNumberInfo":{"countryCode":"1","nationalDestinationCode":"902","subscriberNumber":"9405827"}},
+"type":"SMS","creationTime":"2025-07-11T12:09:09.250Z","lastModifiedTime":"2025-07-11T12:09:09.250Z","readStatus":"Unread",
+"priority":"Normal","attachments":[{"id":"3039142774016","type":"Text","contentType":"text/plain"}],"direction":"Inbound",
+"availability":"Alive","subject":"Testing ","messageStatus":"Received","conversation":{"id":"8189625459472032449"},
+"eventType":"Create","owner":{"extensionId":"62199486016","extensionType":"User","name":"Peter MacIntyre"}}}
