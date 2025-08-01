@@ -6,7 +6,7 @@
 /* ================= */
 
 function app_name() {
-	return "SMS Reminder App";
+	return "SMS Consent App";
 }
 
 /* ================== */

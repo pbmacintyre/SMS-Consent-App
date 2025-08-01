@@ -18,7 +18,7 @@ function page_footer() {
 function place_logo() {
 echo <<<SHOWLOGO
 		<tr class="CustomTable">
-          <td colspan="2" class="CustomTableFullCol">
+          <td colspan="3" class="CustomTableFullCol">
              <img src="images/rc-logo.png"/>
           </td>
         </tr>
