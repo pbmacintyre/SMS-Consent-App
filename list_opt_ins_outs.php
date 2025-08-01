@@ -15,14 +15,10 @@ echo_spaces("listing of all opted accounts showing IN / OUT status, if there is 
 
 $controller = ringcentral_sdk();
 
-// list subscriptions then delete the one we don't need.
-
 $queryParams = array(
 	//'from' => array( $sendingMobile, ),
 	'optStatus' => array( "OptOut", "OptIn" )
 );
-
-//$r = $platform->get("/restapi/v2/accounts/{$accountId}/sms/consents", $queryParams);
 
 try {
 	$response = $controller['platform']->get("/restapi/v2/accounts/~/sms/consents",

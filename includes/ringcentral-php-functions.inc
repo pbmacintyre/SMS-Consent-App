@@ -76,3 +76,27 @@ function echo_link($text, $url) {
 function required_field() {
 	echo "<p style='color: red; display: inline'>*</p>" ;
 }
+function set_opt_out($mobile) {
+	require('includes/vendor/autoload.php');
+	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
+	$dotenv->load();
+
+	$sendingMobile = $_ENV['RC_MOBILE_SENDING_NUMBER'] ;
+
+	$controller = ringcentral_sdk();
+
+	$queryParams = array(
+		'from' => array( $sendingMobile, ),
+		'to' => array( $mobile, ),
+		'optStatus' => array( "OptOut" ),
+		'source' => array( "api" )
+	);
+
+	try {
+		$response = $controller['platform']->patch("/restapi/v2/accounts/~/sms/consents",
+			$queryParams
+		);
+	} catch (Exception $e) {
+		echo_spaces("catch error",  $e->getMessage());
+	}
+}
