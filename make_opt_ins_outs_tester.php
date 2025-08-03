@@ -11,22 +11,23 @@ $dotenv->load();
 
 $sendingMobile = $_ENV['RC_MOBILE_SENDING_NUMBER'] ;
 
-echo_spaces("listing of all opted accounts showing IN / OUT status, if there is a blank display then there are no opted records.", "", 2);
-
 $controller = ringcentral_sdk();
 
 $queryParams = array(
 	'from' => array( $sendingMobile, ),
-	'optStatus' => array( "OptOut", "OptIn" )
+	'to' => array( "+19029405827", ),
+	'optStatus' => array( "OptIn" ),
+//	'optStatus' => array( "OptOut" ),
+	'source' => array( "api" )
 );
 
 try {
-	$response = $controller['platform']->get("/restapi/v2/accounts/~/sms/consents",
+	$response = $controller['platform']->patch(
+		"/restapi/v2/accounts/~/sms/consents",
 		$queryParams
 	);
-	$subscriptions = $response->json()->records;
+	echo_spaces("API response", $response);
 } catch (Exception $e) {
-	echo_spaces("catch error - sending #: $sendingMobile",  $e->getMessage());
+	 echo_spaces("API Error Message", $e->getMessage(), 1);
+	 echo_spaces("API Error Trace", $e->getTrace());
 }
-
-echo_spaces("Opt Ins / Outs", $subscriptions);

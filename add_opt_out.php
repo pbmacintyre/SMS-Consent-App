@@ -9,7 +9,7 @@ require_once('includes/ringcentral-functions.inc');
 require_once('includes/ringcentral-php-functions.inc');
 require_once('includes/ringcentral-db-functions.inc');
 
-show_errors();
+//show_errors();
 
 function show_form($message, $print_again = false) {
 	page_header();
@@ -21,7 +21,7 @@ function show_form($message, $print_again = false) {
                 <td colspan="2" class="EditTableFullCol">
 					<?php
 					if ($print_again == true) {
-						echo "<p class='msg_bad'>" . $message . "</strong></font>";
+						echo "<p class='msg_bad, blink_me'>" . $message . "</strong></font>";
 					} else {
 						echo "<p class='msg_good'>" . $message . "</p>";
 					} ?>
@@ -40,11 +40,36 @@ function show_form($message, $print_again = false) {
 					?>" placeholder="Format: +19991234567">
                 </td>
             </tr>
-
+            <tr>
+                <td class="addform_left_col">
+                    <p style='display: inline;'>Opt In?:</p>
+					<?php required_field(); ?>
+                </td>
+                <td class="addform_right_col_even"><input type="checkbox" name="opt_in" <?php
+					if ($print_again) {
+						if ($_POST['mobile_consent'] == "on") {
+							echo 'CHECKED';
+						}
+					} ?> >
+                </td>
+            </tr>
+            <tr>
+                <td class="addform_left_col">
+                    <p style='display: inline;'>Opt Out?:</p>
+					<?php required_field(); ?>
+                </td>
+                <td class="addform_right_col"><input type="checkbox" name="opt_out" <?php
+					if ($print_again) {
+						if ($_POST['mobile_consent'] == "on") {
+							echo 'CHECKED';
+						}
+					} ?> >
+                </td>
+            </tr>
             <tr class="CustomTable">
                 <td colspan="2" class="CustomTableFullCol">
                     <br/>
-                    <input type="submit" class="submit_button" value=" Add a to Opt Out List " name="add_opt_out">
+                    <input type="submit" class="submit_button" value=" Opt In / Opt Out the Number " name="add_opt_in_out">
                 </td>
             </tr>
             <tr class="CustomTable">
@@ -66,9 +91,16 @@ function check_form() {
 	$print_again = false;
 	$message = "";
 
-	$mobile = htmlspecialchars($_POST['mobile']);
+	$mobile  = htmlspecialchars($_POST['mobile']);
+	$opt_in  = htmlspecialchars($_POST['opt_in']) == "on" ? 1 : 0;
+	$opt_out = htmlspecialchars($_POST['opt_out']) == "on" ? 1 : 0;
 
-	if ($mobile == "") {
+	if ($opt_in == 0 && $opt_out == 0) {
+		$print_again = true;
+		$message = "Please select one of the checkboxes - opt in or opt out.";
+	}
+
+    if ($mobile == "") {
 		$print_again = true;
 		$message = "The mobile number cannot be blank.";
 	}
@@ -82,16 +114,25 @@ function check_form() {
 	if ($print_again) {
 		show_form($message, true);
 	} else {
-		set_opt_out($mobile);
-		$message = "The provided mobile number has been added to your Opt Out List";
-		show_form($message, true);
+
+        if ($opt_in == 1) {$process = "OptIn";} else {$process = "OptOut";}
+
+		$success = set_opt_in_out($mobile, $process);
+		if ($success) {
+            $message = "The provided mobile number has been added to your selected $process List";
+			show_form($message, true);
+		} else {
+			$message = "There was an error adding the provided mobile number to the $process List.";
+            show_form($message, true);
+        }
+
 	}
 }
 
 /* ============= */
 /*  --- MAIN --- */
 /* ============= */
-if (isset($_POST['add_opt_out'])) {
+if (isset($_POST['add_opt_in_out'])) {
 	check_form();
 } else {
 	$message = "Please provide the mobile number that you want to add to the Opt Out List";
