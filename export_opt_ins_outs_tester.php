@@ -15,28 +15,14 @@ try {
 
 	// ====================================
 	$lines = explode("\n", trim($csv)); // Trim and split by line
-
-	echo_spaces("lines output ", $lines, 2);
+	echo_spaces("lines", $lines);
 
 	$csv_data = [];
-	$headers = str_getcsv(array_shift($lines)); // Get header line
-
-	echo_spaces("headers output ", $headers, 3);
-
 	foreach ($lines as $line) {
-		if (trim($line) === '') continue; // skip empty lines
-		$row = str_getcsv($line);         // Parse CSV row
-		$csv_data[] = array_combine($headers, $row); // Merge with headers
+		if (trim($line) === '') continue;  // skip empty lines
+		$csv_data[] = str_getcsv($line);   // Parse CSV row
 	}
-	// ====================================
-
-	foreach ($csv_data as $key => $row) {
-//		echo_spaces("From", $row);
-		echo_spaces("From", $row['FROM']);
-		echo_spaces("To", $row['TO']);
-		echo_spaces("Status", $row['STATUS']);
-		echo_spaces("Source", $row['SOURCE'], 2);
-	}
+	echo_spaces("csv_data", $csv_data);
 
 } catch (Exception $e) {
 	 echo_spaces("API Error Message", $e->getMessage(), 1);
