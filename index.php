@@ -33,10 +33,10 @@ function show_form($message, $print_again = false) {
                     <a href="list_opt_ins_outs.php"> List Opt Ins / Outs </a>
                 </td>
                 <td class="CustomTableFullCol">
-                    <a href="add_opt_out.php"> Add a number to Opt Out list </a>
+                    <a href="manage_opts.php"> Manage Opt In / Opt Out list </a>
                 </td>
                 <td class="CustomTableFullCol">
-                    <a href="add_opt_in.php"> Add a number to Opt In list </a>
+                    <a href="export_opts.php"> Export Opt In / Opt Out Data </a>
                 </td>
             </tr>
         </table>

@@ -50,7 +50,7 @@ function show_form($message, $print_again = false) {
 						if ($_POST['mobile_consent'] == "on") {
 							echo 'CHECKED';
 						}
-					} ?> >
+					} ?> > <label for="opt_in"> Opt In</label>
                 </td>
             </tr>
             <tr>
@@ -63,7 +63,7 @@ function show_form($message, $print_again = false) {
 						if ($_POST['mobile_consent'] == "on") {
 							echo 'CHECKED';
 						}
-					} ?> >
+					} ?> > <label for="opt_out"> Opt Out</label>
                 </td>
             </tr>
             <tr class="CustomTable">
